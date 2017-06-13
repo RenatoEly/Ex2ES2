@@ -111,4 +111,35 @@ public class TesteFatura {
 		
 		}
 	}
+	
+	@Test
+	public void testCreateFaturaCamposNull() {
+		
+		Fatura fatura = null;
+		try{
+			fatura = new Fatura(null,null,10, CONSULTORIA.getServico());
+		}catch(Exception e){
+			fail("Não deveria ter lançado exceção");
+		}
+		
+		try{
+			fatura = new Fatura("Renato",null,10, CONSULTORIA.getServico());
+		}catch(Exception e){
+			fail("Não deveria ter lançado exceção");
+		}
+		
+		try{
+			fatura = new Fatura(null,"Rua X",10, CONSULTORIA.getServico());
+			
+		}catch(Exception e){
+			fail("Não deveria ter lançado exceção");
+		}
+		
+		try{
+			fatura = new Fatura("Renato","Rua X",10, null);
+			fail("Deveria ter lançado exceção");
+		}catch(Exception e){
+		
+		}
+	}
 }

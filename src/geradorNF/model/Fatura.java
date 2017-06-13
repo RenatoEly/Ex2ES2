@@ -1,11 +1,5 @@
 package geradorNF.model;
 
-/**
- * Classe usada para representar uma fatura.
- * Essa classe é a base para a nota fiscal.
- * @author Renato
- *
- */
 public class Fatura {
 
 	private String nomeCliente;
@@ -13,17 +7,12 @@ public class Fatura {
 	private Servico tipoServico;
 	private double valor;
 	
-	/**
-	 * Construtor da classe
-	 * @param nomeCliente nome do cliente
-	 * @param enderecoCliente endereço
-	 * @param valorFatura valor da fatura
-	 * @param tipoServico tipo do serviço (Deve ser uma instancia de Servico)
-	 * @throws Exception 
-	 */
 	public Fatura(String nomeCliente, String enderecoCliente, double valorFatura, Servico tipoServico) throws Exception {
 		if(valorFatura < 0){
 			throw new Exception("Valor da fatura não pode ser menor que zero");
+		}
+		if(tipoServico == null){
+			throw new Exception("Fatura deve conter um tipo de serviço");
 		}
 		this.nomeCliente = nomeCliente;
 		this.enderecoCliente = enderecoCliente;
@@ -31,35 +20,63 @@ public class Fatura {
 		this.tipoServico = tipoServico;
 	}
 
-	/**
-	 * 
-	 * @return nome do cliente
-	 */
 	public String getCliente() {
 		return nomeCliente;
 	}
 
-	/**
-	 * 
-	 * @return endereço do cliente
-	 */
 	public String getEndereco() {
 		return enderecoCliente;
 	}
 
-	/**
-	 * 
-	 * @return tipo do serviço
-	 */
 	public Servico getTipoServico() {
 		return tipoServico;
 	}
 
-	/**
-	 * 
-	 * @return valor da fatura
-	 */
 	public double getvalor() {
 		return valor;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((enderecoCliente == null) ? 0 : enderecoCliente.hashCode());
+		result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
+		result = prime * result + ((tipoServico == null) ? 0 : tipoServico.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(valor);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fatura other = (Fatura) obj;
+		if (enderecoCliente == null) {
+			if (other.enderecoCliente != null)
+				return false;
+		} else if (!enderecoCliente.equals(other.enderecoCliente))
+			return false;
+		if (nomeCliente == null) {
+			if (other.nomeCliente != null)
+				return false;
+		} else if (!nomeCliente.equals(other.nomeCliente))
+			return false;
+		if (tipoServico == null) {
+			if (other.tipoServico != null)
+				return false;
+		} else if (!tipoServico.equals(other.tipoServico))
+			return false;
+		if (Double.doubleToLongBits(valor) != Double.doubleToLongBits(other.valor))
+			return false;
+		return true;
+	}
+	
+	
 }
